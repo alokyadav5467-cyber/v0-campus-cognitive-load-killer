@@ -2,7 +2,7 @@
 
 import React from "react"
 
-import { Brain, LayoutDashboard, Sparkles, Mail, User } from "lucide-react";
+import { Brain, LayoutDashboard, Sparkles, Mail, User, Search } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -11,6 +11,7 @@ const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { name: "What-If Simulator", href: "/dashboard/simulator", icon: Sparkles },
   { name: "Smart Mail", href: "/dashboard/mail", icon: Mail },
+  { name: "Lost & Found", href: "/dashboard/lost-found", icon: Search },
   { name: "Profile", href: "/dashboard/profile", icon: User },
 ];
 
