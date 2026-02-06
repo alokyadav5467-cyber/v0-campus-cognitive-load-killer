@@ -62,9 +62,11 @@ export default function DashboardLayout({
       <aside className="fixed inset-y-0 left-0 z-50 w-64 border-r border-border bg-card/70 backdrop-blur-xl">
         {/* Logo */}
         <div className="flex h-16 items-center gap-3 border-b border-border px-6">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
-            <span className="text-lg font-bold">CA</span>
-          </div>
+          <img 
+            src="/images/campus-all-rounder-logo.png" 
+            alt="Campus All Rounder Logo" 
+            className="h-10 w-10 object-contain"
+          />
           <div>
             <h1 className="text-sm font-bold leading-tight">Campus</h1>
             <p className="text-xs text-muted-foreground">All Rounder</p>

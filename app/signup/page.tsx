@@ -98,9 +98,11 @@ export default function SignupPage() {
         {/* Logo/Header */}
         <div className="mb-8 text-center">
           <div className="flex justify-center mb-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-accent/10 text-accent">
-              <span className="text-2xl font-bold">CA</span>
-            </div>
+            <img 
+              src="/images/campus-all-rounder-logo.png" 
+              alt="Campus All Rounder Logo" 
+              className="h-20 w-20 object-contain"
+            />
           </div>
           <h1 className="text-2xl font-bold mb-2">Create Your Account</h1>
           <p className="text-sm text-muted-foreground">

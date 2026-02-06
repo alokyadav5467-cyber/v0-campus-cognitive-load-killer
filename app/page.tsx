@@ -39,9 +39,11 @@ export default function Page() {
               className={`flex justify-center mb-6 ${mounted ? 'animate-scale-in' : 'opacity-0'}`}
               style={{ animationDelay: '0.2s' }}
             >
-              <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-accent/10 text-accent">
-                <span className="text-3xl font-bold">CA</span>
-              </div>
+              <img 
+                src="/images/campus-all-rounder-logo.png" 
+                alt="Campus All Rounder Logo" 
+                className="h-32 w-32 object-contain"
+              />
             </div>
             <h1 
               className={`mb-6 text-balance text-5xl font-bold leading-tight tracking-tight md:text-6xl lg:text-7xl ${mounted ? 'animate-fade-in-up' : 'opacity-0'}`}
