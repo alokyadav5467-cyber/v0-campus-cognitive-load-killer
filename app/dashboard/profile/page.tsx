@@ -1,10 +1,86 @@
+"use client";
+
+import React from "react"
+
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { User, Mail, Calendar, GraduationCap, Building2, Phone, MapPin, Edit } from "lucide-react";
+import { User, Mail, Calendar, GraduationCap, Building2, Phone, MapPin, Edit, Check } from "lucide-react";
+import { useState, useRef } from "react";
 
 export default function ProfilePage() {
+  const [isSaving, setIsSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+  const [formData, setFormData] = useState({
+    fullName: "Student Name",
+    email: "student@iitrpr.ac.in",
+    studentId: "2022CSB001",
+    department: "Computer Science & Engineering",
+    year: "3rd Year (2024-2025)",
+    phone: "+91 98765 43210",
+    address: "Hostel Block A, Room 123, IIT Ropar",
+  });
+
+  const handlePhotoChange = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      console.log("[v0] Photo selected:", file.name);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPhotoPreview(reader.result as string);
+        console.log("[v0] Photo preview loaded");
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
+  const handleSave = () => {
+    console.log("[v0] Saving profile changes...", formData);
+    setIsSaving(true);
+    setSaved(false);
+
+    // Simulate API call
+    setTimeout(() => {
+      setIsSaving(false);
+      setSaved(true);
+      console.log("[v0] Profile saved successfully");
+
+      // Hide success message after 3 seconds
+      setTimeout(() => {
+        setSaved(false);
+      }, 3000);
+    }, 1000);
+  };
+
+  const handleCancel = () => {
+    console.log("[v0] Canceling changes");
+    // Reset form to original values
+    setFormData({
+      fullName: "Student Name",
+      email: "student@iitrpr.ac.in",
+      studentId: "2022CSB001",
+      department: "Computer Science & Engineering",
+      year: "3rd Year (2024-2025)",
+      phone: "+91 98765 43210",
+      address: "Hostel Block A, Room 123, IIT Ropar",
+    });
+    setPhotoPreview(null);
+  };
+
   return (
     <div className="space-y-8">
       {/* Header */}
@@ -20,12 +96,24 @@ export default function ProfilePage() {
         <div className="flex flex-col md:flex-row gap-8">
           {/* Avatar Section */}
           <div className="flex flex-col items-center gap-4">
-            <div className="h-32 w-32 rounded-full bg-accent/10 flex items-center justify-center text-accent">
-              <User className="h-16 w-16" />
+            <div className="h-32 w-32 rounded-full bg-accent/10 flex items-center justify-center text-accent overflow-hidden">
+              {photoPreview ? (
+                <img src={photoPreview || "/placeholder.svg"} alt="Profile" className="h-full w-full object-cover" />
+              ) : (
+                <User className="h-16 w-16" />
+              )}
             </div>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleFileSelect}
+              className="hidden"
+            />
             <Button
               variant="outline"
               size="sm"
+              onClick={handlePhotoChange}
               className="border-accent/30 text-accent hover:bg-accent/10 bg-transparent"
             >
               <Edit className="h-4 w-4 mr-2" />
@@ -44,7 +132,8 @@ export default function ProfilePage() {
                   <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="fullName"
-                    defaultValue="Student Name"
+                    value={formData.fullName}
+                    onChange={(e) => handleInputChange("fullName", e.target.value)}
                     className="pl-10 border-border bg-secondary/30"
                   />
                 </div>
@@ -59,7 +148,8 @@ export default function ProfilePage() {
                   <Input
                     id="email"
                     type="email"
-                    defaultValue="student@iitrpr.ac.in"
+                    value={formData.email}
+                    onChange={(e) => handleInputChange("email", e.target.value)}
                     className="pl-10 border-border bg-secondary/30"
                   />
                 </div>
@@ -73,7 +163,8 @@ export default function ProfilePage() {
                   <GraduationCap className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="studentId"
-                    defaultValue="2022CSB001"
+                    value={formData.studentId}
+                    onChange={(e) => handleInputChange("studentId", e.target.value)}
                     className="pl-10 border-border bg-secondary/30"
                   />
                 </div>
@@ -87,7 +178,8 @@ export default function ProfilePage() {
                   <Building2 className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="department"
-                    defaultValue="Computer Science & Engineering"
+                    value={formData.department}
+                    onChange={(e) => handleInputChange("department", e.target.value)}
                     className="pl-10 border-border bg-secondary/30"
                   />
                 </div>
@@ -101,7 +193,8 @@ export default function ProfilePage() {
                   <Calendar className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="year"
-                    defaultValue="3rd Year (2024-2025)"
+                    value={formData.year}
+                    onChange={(e) => handleInputChange("year", e.target.value)}
                     className="pl-10 border-border bg-secondary/30"
                   />
                 </div>
@@ -116,7 +209,8 @@ export default function ProfilePage() {
                   <Input
                     id="phone"
                     type="tel"
-                    defaultValue="+91 98765 43210"
+                    value={formData.phone}
+                    onChange={(e) => handleInputChange("phone", e.target.value)}
                     className="pl-10 border-border bg-secondary/30"
                   />
                 </div>
@@ -131,7 +225,8 @@ export default function ProfilePage() {
                 <MapPin className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                 <Input
                   id="address"
-                  defaultValue="Hostel Block A, Room 123, IIT Ropar"
+                  value={formData.address}
+                  onChange={(e) => handleInputChange("address", e.target.value)}
                   className="pl-10 border-border bg-secondary/30"
                 />
               </div>
@@ -140,18 +235,37 @@ export default function ProfilePage() {
             <div className="flex gap-4 pt-4">
               <Button
                 size="lg"
-                className="bg-accent text-accent-foreground hover:bg-accent/90"
+                onClick={handleSave}
+                disabled={isSaving}
+                className="bg-accent text-accent-foreground hover:bg-accent/90 disabled:opacity-50"
               >
-                Save Changes
+                {isSaving ? (
+                  <>Saving...</>
+                ) : saved ? (
+                  <>
+                    <Check className="mr-2 h-4 w-4" />
+                    Saved!
+                  </>
+                ) : (
+                  "Save Changes"
+                )}
               </Button>
               <Button
                 size="lg"
                 variant="outline"
-                className="border-border bg-transparent hover:bg-secondary/50"
+                onClick={handleCancel}
+                disabled={isSaving}
+                className="border-border bg-transparent hover:bg-secondary/50 disabled:opacity-50"
               >
                 Cancel
               </Button>
             </div>
+            
+            {saved && (
+              <div className="bg-accent/10 border border-accent/20 rounded-lg p-3 text-sm text-accent animate-fade-in">
+                Profile updated successfully!
+              </div>
+            )}
           </div>
         </div>
       </Card>
