@@ -8,8 +8,8 @@ const _geist = Geist({ subsets: ['latin'] })
 const _geistMono = Geist_Mono({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Campus What-If Simulator - AI-Powered Academic Decision Tool',
-  description: 'We don\'t just summarize emails. We show consequences. Simulate the impact of your academic decisions with AI.',
+  title: 'Campus All Rounder - AI-Powered Campus Assistant',
+  description: 'Complete campus solution with AI-powered email analysis, what-if simulations, and smart lost & found. Make informed decisions.',
   generator: 'v0.app',
 }
 

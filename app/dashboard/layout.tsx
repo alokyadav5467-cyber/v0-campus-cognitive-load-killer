@@ -29,11 +29,11 @@ export default function DashboardLayout({
         {/* Logo */}
         <div className="flex h-16 items-center gap-3 border-b border-border px-6">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
-            <Brain className="h-6 w-6" />
+            <span className="text-lg font-bold">CA</span>
           </div>
           <div>
-            <h1 className="text-sm font-bold leading-tight">Campus What-If</h1>
-            <p className="text-xs text-muted-foreground">Simulator</p>
+            <h1 className="text-sm font-bold leading-tight">Campus</h1>
+            <p className="text-xs text-muted-foreground">All Rounder</p>
           </div>
         </div>
 

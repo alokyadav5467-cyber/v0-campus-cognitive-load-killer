@@ -32,11 +32,11 @@ export default function SignupPage() {
           loop
           muted
           playsInline
-          className="h-full w-full object-cover opacity-15"
+          className="h-full w-full object-cover opacity-60"
         >
           <source src="/images/from-20klickpin-20cf-20ghim-20c-e1-bb-a7a-20claire-20ostre-20tr-c3-aan-20mapping-20-20-e1-ba-a2nh-20b-e1-ba-a7u-20tr-e1-bb-9di-20-c4-91-c3-aam-20thi-e1-ba-bft-20k-e1-ba-bf-20t-e1-ba-a1p-20ch-c3-ad-20ph-c3-b4ng-20n-e1-bb-81n.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-gradient-to-br from-background/85 via-background/75 to-background/85" />
+        <div className="absolute inset-0 bg-gradient-to-br from-background/60 via-background/50 to-background/60" />
         <div className="absolute -top-1/2 -right-1/2 w-full h-full rounded-full bg-accent/5 blur-3xl animate-pulse-glow" />
         <div className="absolute -bottom-1/2 -left-1/2 w-full h-full rounded-full bg-primary/5 blur-3xl animate-pulse-glow-alt" />
       </div>
@@ -46,7 +46,7 @@ export default function SignupPage() {
         <div className="mb-8 text-center">
           <div className="flex justify-center mb-4">
             <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-accent/10 text-accent">
-              <Brain className="h-8 w-8" />
+              <span className="text-2xl font-bold">CA</span>
             </div>
           </div>
           <h1 className="text-2xl font-bold mb-2">Create Your Account</h1>
