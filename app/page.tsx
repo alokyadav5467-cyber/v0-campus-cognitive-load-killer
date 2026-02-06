@@ -17,7 +17,7 @@ export default function Page() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [0.3, 0]);
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-background text-foreground">
+    <div ref={containerRef} className="relative min-h-screen bg-background text-foreground">
       {/* Animated Background Video */}
       <motion.div 
         className="fixed inset-0 z-0 overflow-hidden"
