@@ -25,9 +25,18 @@ export default function SignupPage() {
 
   return (
     <div className="relative min-h-screen bg-background text-foreground flex items-center justify-center p-4">
-      {/* Animated Background */}
+      {/* Video Background */}
       <div className="fixed inset-0 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-accent/5" />
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="h-full w-full object-cover opacity-15"
+        >
+          <source src="/images/from-20klickpin-20cf-20ghim-20c-e1-bb-a7a-20claire-20ostre-20tr-c3-aan-20mapping-20-20-e1-ba-a2nh-20b-e1-ba-a7u-20tr-e1-bb-9di-20-c4-91-c3-aam-20thi-e1-ba-bft-20k-e1-ba-bf-20t-e1-ba-a1p-20ch-c3-ad-20ph-c3-b4ng-20n-e1-bb-81n.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-br from-background/85 via-background/75 to-background/85" />
         <div className="absolute -top-1/2 -right-1/2 w-full h-full rounded-full bg-accent/5 blur-3xl animate-pulse-glow" />
         <div className="absolute -bottom-1/2 -left-1/2 w-full h-full rounded-full bg-primary/5 blur-3xl animate-pulse-glow-alt" />
       </div>
