@@ -53,12 +53,12 @@ The central AI innovation is **consequence prediction**, not just summarization.
 ## Application Screenshots & Features
 
 ### 1. **Login Interface**
-![Login Screen](demo_1.jpeg)
+![Login Screen]
 - Clean authentication flow with the core tagline: *"We don't just summarize. We show consequences."*
 - Establishes the consequence-first messaging from the entry point
 
 ### 2. **Dashboard - Academic Snapshot**
-![Dashboard](demo_2.jpeg)
+![Dashboard]
 **Live Features Demonstrated:**
 - **Attendance Tracking**: Shows 87% (3% above minimum requirement) with visual status indicator
 - **Urgent Deadlines Counter**: 4 items due within next 3 days
@@ -72,7 +72,7 @@ The central AI innovation is **consequence prediction**, not just summarization.
 **Navigation**: Sidebar shows Dashboard, What-If Simulator, Smart Mail, Lost & Found, Profile
 
 ### 3. **What-If Simulator - Decision Input**
-![What-If Simulator](demo_3.jpeg)
+![What-If Simulator]
 **Core AI Feature Demonstrated:**
 - **Decision Simulator Interface** with three input fields:
   - **Action Type**: Dropdown to select decision type (skip class, delay submission, etc.)
@@ -82,7 +82,7 @@ The central AI innovation is **consequence prediction**, not just summarization.
 - Tagline reinforces purpose: *"Simulate academic decisions and see their consequences before you act"*
 
 ### 4. **Smart Mail Intelligence**
-![Smart Mail](demo_4.jpeg)
+![Smart Mail]
 **AI Email Processing Demonstrated:**
 - **Email Input Box**: Paste long campus emails for instant summarization
 - **Example email shown**: Assignment deadline extension notice with verbose institutional language
@@ -93,7 +93,7 @@ The central AI innovation is **consequence prediction**, not just summarization.
 - Subtitle: *"AI-powered email summarization with action extraction"*
 
 ### 5. **Lost & Found - AI Object Recognition**
-![Lost & Found](demo_5.jpeg)
+![Lost & Found]
 **Additional AI Feature:**
 - **Photo Upload Interface**: Upload or capture photo of lost item
 - **Optional Context Fields**:
