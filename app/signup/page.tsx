@@ -16,11 +16,64 @@ export default function SignupPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSignup = (e: React.FormEvent) => {
     e.preventDefault();
-    // For demo purposes, redirect to dashboard
-    router.push("/dashboard");
+    setError("");
+
+    console.log("[v0] Signup attempt:", email);
+
+    // Validation
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters");
+      return;
+    }
+
+    setIsLoading(true);
+
+    // Get existing users
+    const usersData = localStorage.getItem("campus_users");
+    const users = usersData ? JSON.parse(usersData) : [];
+
+    // Check if email already exists
+    const existingUser = users.find((u: any) => u.email === email);
+    if (existingUser) {
+      setError("Email already registered. Redirecting to login...");
+      setTimeout(() => {
+        router.push("/login");
+      }, 2000);
+      setIsLoading(false);
+      return;
+    }
+
+    // Add new user
+    const newUser = {
+      name: name,
+      email: email,
+      password: password,
+      createdAt: new Date().toISOString(),
+    };
+
+    users.push(newUser);
+    localStorage.setItem("campus_users", JSON.stringify(users));
+
+    console.log("[v0] Signup successful for:", email);
+
+    // Auto login
+    localStorage.setItem("current_user", JSON.stringify(newUser));
+
+    setTimeout(() => {
+      router.push("/dashboard");
+      setIsLoading(false);
+    }, 1000);
   };
 
   return (
@@ -96,11 +149,31 @@ export default function SignupPage() {
             />
           </div>
 
+          <div className="space-y-2">
+            <Label htmlFor="confirmPassword">Confirm Password</Label>
+            <Input
+              id="confirmPassword"
+              type="password"
+              placeholder="••••••••"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+              className="bg-secondary/50 border-border"
+            />
+          </div>
+
+          {error && (
+            <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-3 text-sm text-destructive animate-fade-in">
+              {error}
+            </div>
+          )}
+
           <Button
             type="submit"
-            className="w-full h-12 bg-accent text-accent-foreground hover:bg-accent/90 transition-all group"
+            disabled={isLoading}
+            className="w-full h-12 bg-accent text-accent-foreground hover:bg-accent/90 transition-all group disabled:opacity-50"
           >
-            Create Account
+            {isLoading ? "Creating Account..." : "Create Account"}
             <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
           </Button>
         </form>

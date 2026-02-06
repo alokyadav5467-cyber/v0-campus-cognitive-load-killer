@@ -15,11 +15,44 @@ export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // For demo purposes, redirect to dashboard
-    router.push("/dashboard");
+    setError("");
+    setIsLoading(true);
+
+    console.log("[v0] Login attempt with:", email);
+
+    // Get users from localStorage
+    const usersData = localStorage.getItem("campus_users");
+    const users = usersData ? JSON.parse(usersData) : [];
+
+    console.log("[v0] Total registered users:", users.length);
+
+    // Check if user exists with matching credentials
+    const user = users.find(
+      (u: any) => u.email === email && u.password === password
+    );
+
+    setTimeout(() => {
+      if (user) {
+        console.log("[v0] Login successful for:", email);
+        // Store logged in user
+        localStorage.setItem("current_user", JSON.stringify(user));
+        // Redirect to dashboard
+        router.push("/dashboard");
+      } else {
+        console.log("[v0] Invalid credentials, redirecting to signup");
+        setError("Invalid credentials. Redirecting to signup...");
+        setIsLoading(false);
+        // Redirect to signup after 2 seconds
+        setTimeout(() => {
+          router.push("/signup");
+        }, 2000);
+      }
+    }, 800);
   };
 
   return (
@@ -82,11 +115,18 @@ export default function LoginPage() {
             />
           </div>
 
+          {error && (
+            <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-3 text-sm text-destructive animate-fade-in">
+              {error}
+            </div>
+          )}
+
           <Button
             type="submit"
-            className="w-full h-12 bg-accent text-accent-foreground hover:bg-accent/90 transition-all group"
+            disabled={isLoading}
+            className="w-full h-12 bg-accent text-accent-foreground hover:bg-accent/90 transition-all group disabled:opacity-50"
           >
-            Enter Dashboard
+            {isLoading ? "Verifying..." : "Enter Dashboard"}
             <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
           </Button>
         </form>

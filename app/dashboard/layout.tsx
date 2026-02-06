@@ -23,9 +23,23 @@ export default function DashboardLayout({
   const pathname = usePathname();
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="relative min-h-screen bg-background">
+      {/* Video Background */}
+      <div className="fixed inset-0 z-0 overflow-hidden">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="h-full w-full object-cover opacity-60"
+        >
+          <source src="/images/from-20klickpin-20cf-20ghim-20c-e1-bb-a7a-20claire-20ostre-20tr-c3-aan-20mapping-20-20-e1-ba-a2nh-20b-e1-ba-a7u-20tr-e1-bb-9di-20-c4-91-c3-aam-20thi-e1-ba-bft-20k-e1-ba-bf-20t-e1-ba-a1p-20ch-c3-ad-20ph-c3-b4ng-20n-e1-bb-81n.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-br from-background/70 via-background/60 to-background/70" />
+      </div>
+
       {/* Sidebar */}
-      <aside className="fixed inset-y-0 left-0 z-50 w-64 border-r border-border bg-card/50 backdrop-blur-xl">
+      <aside className="fixed inset-y-0 left-0 z-50 w-64 border-r border-border bg-card/70 backdrop-blur-xl">
         {/* Logo */}
         <div className="flex h-16 items-center gap-3 border-b border-border px-6">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
