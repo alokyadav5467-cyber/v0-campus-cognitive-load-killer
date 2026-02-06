@@ -2,9 +2,9 @@
 
 import React from "react"
 
-import { Brain, LayoutDashboard, Sparkles, Mail, User, Search } from "lucide-react";
+import { Brain, LayoutDashboard, Sparkles, Mail, User, Search, LogOut } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 const navigation = [
@@ -21,6 +21,13 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
+
+  const handleSignOut = () => {
+    console.log("[v0] Signing out user");
+    localStorage.removeItem("current_user");
+    router.push("/login");
+  };
 
   return (
     <div className="relative min-h-screen bg-background">
@@ -74,7 +81,14 @@ export default function DashboardLayout({
         </nav>
 
         {/* Footer */}
-        <div className="border-t border-border p-4">
+        <div className="border-t border-border p-4 space-y-3">
+          <button
+            onClick={handleSignOut}
+            className="group flex w-full items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-destructive transition-all hover:bg-destructive/10"
+          >
+            <LogOut className="h-5 w-5 shrink-0" />
+            Sign Out
+          </button>
           <div className="rounded-lg bg-accent/5 p-3">
             <p className="text-xs font-medium text-accent mb-1">AI-Powered</p>
             <p className="text-xs text-muted-foreground">

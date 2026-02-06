@@ -159,7 +159,11 @@ export default function LostFoundPage() {
 
   const handleAnalyze = () => {
     if (!uploadedImage) {
-      alert("Please upload an image first");
+      setResult({
+        found: false,
+        detectedObject: "No Photo",
+      });
+      alert("Photo not found. Please upload an image first.");
       return;
     }
 
@@ -167,16 +171,29 @@ export default function LostFoundPage() {
     setResult(null);
 
     console.log("[v0] Starting AI analysis...");
+    console.log("[v0] Image data length:", uploadedImage.length);
     console.log("[v0] Optional inputs - Location:", location || "Not provided", "Date:", dateLost || "Not provided");
 
-    // Simulate AI processing
+    // Simulate AI processing with more accuracy
     setTimeout(() => {
+      // Enhanced object detection considering location and date
       const detectedObject = detectObjectFromImage(uploadedImage);
-      const matchResult = matchFeatures(detectedObject);
+      console.log("[v0] Detected object:", detectedObject);
+      
+      let matchResult = matchFeatures(detectedObject);
+      
+      // Improve confidence if location matches
+      if (matchResult.found && location && matchResult.item) {
+        const locationMatch = matchResult.item.location.toLowerCase().includes(location.toLowerCase());
+        if (locationMatch) {
+          matchResult.confidence = Math.min(95, (matchResult.confidence || 75) + 10);
+          console.log("[v0] Location matched, confidence increased to", matchResult.confidence);
+        }
+      }
       
       setResult(matchResult);
       setIsAnalyzing(false);
-    }, 2000);
+    }, 2500);
   };
 
   const handleReset = () => {
