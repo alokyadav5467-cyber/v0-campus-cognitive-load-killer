@@ -22,6 +22,19 @@ export default function DashboardLayout({
 }) {
   const pathname = usePathname();
   const router = useRouter();
+  const [currentUser, setCurrentUser] = React.useState<any>(null);
+
+  React.useEffect(() => {
+    const userData = localStorage.getItem("current_user");
+    if (userData) {
+      const user = JSON.parse(userData);
+      setCurrentUser(user);
+      console.log("[v0] Loaded user:", user.name || user.email);
+    } else {
+      console.log("[v0] No user found, redirecting to login");
+      router.push("/login");
+    }
+  }, [router]);
 
   const handleSignOut = () => {
     console.log("[v0] Signing out user");
@@ -111,13 +124,27 @@ export default function DashboardLayout({
             </p>
           </div>
           <div className="flex items-center gap-4">
-            <div className="text-right">
-              <p className="text-sm font-medium">Student</p>
-              <p className="text-xs text-muted-foreground">student@iit.ac.in</p>
-            </div>
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/10 text-accent">
-              <User className="h-5 w-5" />
-            </div>
+            {currentUser ? (
+              <>
+                <div className="text-right">
+                  <p className="text-sm font-medium">{currentUser.name || "Student"}</p>
+                  <p className="text-xs text-muted-foreground">{currentUser.email || "student@university.edu"}</p>
+                </div>
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/10 text-accent font-semibold">
+                  {currentUser.name ? currentUser.name.charAt(0).toUpperCase() : "S"}
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="text-right">
+                  <p className="text-sm font-medium">Loading...</p>
+                  <p className="text-xs text-muted-foreground">Please wait</p>
+                </div>
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/10 text-accent">
+                  <User className="h-5 w-5" />
+                </div>
+              </>
+            )}
           </div>
         </header>
 

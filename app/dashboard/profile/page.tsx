@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { User, Mail, Calendar, GraduationCap, Building2, Phone, MapPin, Edit, Check } from "lucide-react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 export default function ProfilePage() {
   const [isSaving, setIsSaving] = useState(false);
@@ -23,6 +23,23 @@ export default function ProfilePage() {
     phone: "+91 98765 43210",
     address: "Hostel Block A, Room 123, IIT Ropar",
   });
+
+  useEffect(() => {
+    const userData = localStorage.getItem("current_user");
+    if (userData) {
+      const user = JSON.parse(userData);
+      console.log("[v0] Loading user profile data:", user);
+      setFormData({
+        fullName: user.name || "Student Name",
+        email: user.email || "student@university.edu",
+        studentId: user.studentId || "Not provided",
+        department: user.department || "Not specified",
+        year: user.year || "Not specified",
+        phone: user.phone || "Not provided",
+        address: user.address || "Not provided",
+      });
+    }
+  }, []);
 
   const handlePhotoChange = () => {
     fileInputRef.current?.click();
@@ -53,13 +70,29 @@ export default function ProfilePage() {
     setIsSaving(true);
     setSaved(false);
 
-    // Simulate API call
+    // Update current user in localStorage
+    const userData = localStorage.getItem("current_user");
+    if (userData) {
+      const user = JSON.parse(userData);
+      const updatedUser = {
+        ...user,
+        name: formData.fullName,
+        email: formData.email,
+        studentId: formData.studentId,
+        department: formData.department,
+        year: formData.year,
+        phone: formData.phone,
+        address: formData.address,
+      };
+      localStorage.setItem("current_user", JSON.stringify(updatedUser));
+      console.log("[v0] Profile updated in localStorage");
+    }
+
     setTimeout(() => {
       setIsSaving(false);
       setSaved(true);
       console.log("[v0] Profile saved successfully");
 
-      // Hide success message after 3 seconds
       setTimeout(() => {
         setSaved(false);
       }, 3000);
