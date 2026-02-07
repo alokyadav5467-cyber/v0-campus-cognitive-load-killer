@@ -1,5 +1,22 @@
 import { Card } from "@/components/ui/card";
-import { Calendar, Clock, TrendingUp, AlertCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
+import { 
+  Calendar, 
+  Clock, 
+  TrendingUp, 
+  AlertCircle,
+  Coffee,
+  ShoppingBag,
+  MapPin,
+  GraduationCap,
+  ArrowRight,
+  Bell,
+  UtensilsCrossed,
+  Car,
+  BookOpen
+} from "lucide-react";
 
 export default function DashboardPage() {
   return (
@@ -8,7 +25,7 @@ export default function DashboardPage() {
       <div>
         <h1 className="text-3xl font-bold mb-2">Welcome Back, Student</h1>
         <p className="text-muted-foreground">
-          Here's your academic snapshot for today
+          Your complete campus companion - Everything you need in one place
         </p>
       </div>
 
